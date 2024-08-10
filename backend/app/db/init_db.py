@@ -1,3 +1,4 @@
+import os
 from app.db.base import Base
 from app.db.session import engine
 from app.utils.csv_loader import load_data_from_csv
@@ -5,6 +6,14 @@ from sqlalchemy import inspect
 from app.db.models import Order  # Adjust the path based on your project structure
 
 def init_db():
+    # Check if the database file exists
+    db_path = 'data/orders.db'
+    if os.path.exists(db_path):
+        print(f"Database file '{db_path}' already exists. Skipping table creation and data loading.")
+        return
+    else:
+        print(f"Database file '{db_path}' does not exist. Creating tables and loading data.")
+
     # Create all tables based on the Base metadata
     try:
         Base.metadata.create_all(bind=engine)
