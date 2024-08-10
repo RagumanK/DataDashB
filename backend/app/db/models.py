@@ -1,12 +1,10 @@
-from sqlalchemy import Column, Integer, String, Date, Time
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from sqlalchemy import Column, Integer, String, Date, Time, Sequence
+from app.db.base import Base
 
 class Order(Base):
     __tablename__ = 'orders'
     
-    order_id = Column(Integer, primary_key=True, autoincrement=True)
+    order_id = Column(Integer, Sequence("fakemodel_id_sequence"), primary_key=True)
     product = Column(String, nullable=False)
     price = Column(Integer, nullable=False)
     quantity = Column(Integer, nullable=False)
