@@ -5,3 +5,4 @@ duckdb-engine
 pandas
 sqlalchemy
 python-dotenv
+python-socketio[asgi]  

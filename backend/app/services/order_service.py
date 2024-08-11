@@ -20,7 +20,7 @@ class OrderService:
         existing_order = session.query(OrderModel).filter(OrderModel.order_id == order_id).first()
         if not existing_order:
             return None
-        for key, value in order.dict().items():
+        for key, value in order.model_dump().items():
             setattr(existing_order, key, value)
         session.commit()
         return existing_order
