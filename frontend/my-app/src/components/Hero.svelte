@@ -1,6 +1,5 @@
 <script>
   import SectionWrapper from "./SectionWrapper.svelte";
-  import CtAs from "./CTAs.svelte";
   import Stars from "./Stars.svelte";
 </script>
 
