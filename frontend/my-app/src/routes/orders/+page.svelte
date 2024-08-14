@@ -1,33 +1,44 @@
 <script>
   import SectionWrapper from "../../components/SectionWrapper.svelte";
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import { writable } from "svelte/store";
   import io from "socket.io-client";
+  import { env } from "$env/dynamic/public";
 
   let orders = writable([]);
   let socket;
+  let isUpdating = writable(false);
+  let isDeleting = writable(false);
 
   onMount(async () => {
-    // Initialize Socket.IO client
-    const socket = io("http://127.0.0.1:8000", {
-      path: "/sockets",
-    });
-    socket.on("connect", () => {
-      console.log("Successfully connected to the server");
-    });
+    try {
+      // Initialize Socket.IO client
+      socket = io(env.PUBLIC_API_URL, {
+        path: "/sockets",
+      });
+      socket.on("connect", () => {
+        console.log("Successfully connected to the server");
+      });
 
-    socket.on("disconnect", () => {
-      console.log("Disconnected from the server");
-    });
+      socket.on("disconnect", () => {
+        console.log("Disconnected from the server");
+      });
 
-    socket.on("connect_error", (error) => {
-      console.error("Connection Error:", error);
-    });
+      socket.on("connect_error", (error) => {
+        console.error("Connection Error:", error);
+      });
 
-    // Fetch initial orders from the server
-    const res = await fetch("/api/v1/orders/");
-    const data = await res.json();
-    orders.set(data);
+      // Fetch initial orders from the server
+      const res = await fetch("/api/v1/orders/");
+      if (!res.ok) {
+        throw new Error(`Failed to fetch orders: ${res.statusText}`);
+      }
+      const data = await res.json();
+      orders.set(data);
+    } catch (error) {
+      console.error("Error during initialization:", error);
+      alert("Failed to initialize orders. Please try again later.");
+    }
 
     // Handle real-time updates from the server
     socket.on("orderCreated", (order) => {
@@ -45,20 +56,54 @@
     });
   });
 
+  onDestroy(() => {
+    if (socket) {
+      socket.disconnect();
+    }
+  });
+
   async function updateOrder(order) {
-    await fetch(`/api/v1/orders/${order.order_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(order),
-    });
+    try {
+      isUpdating.set(true);
+
+      const res = await fetch(`/api/v1/orders/${order.order_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(order),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to update order: ${res.statusText}`);
+      }
+    } catch (error) {
+      console.error("Error updating order:", error);
+      alert("Failed to update the order. Please try again later.");
+    } finally {
+      isUpdating.set(false);
+    }
   }
 
   async function deleteOrder(order_id) {
-    await fetch(`/api/v1/orders/${order_id}`, {
-      method: "DELETE",
-    });
+    try {
+      isDeleting.set(true);
+
+      const res = await fetch(`/api/v1/orders/${order_id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to delete order: ${res.statusText}`);
+      }
+
+      console.log("Order deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting order:", error);
+      alert("Failed to delete the order. Please try again later.");
+    } finally {
+      isDeleting.set(false);
+    }
   }
 </script>
 
@@ -135,8 +180,9 @@
               <button
                 class="px-4 py-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700"
                 on:click={() => deleteOrder(order.order_id)}
+                disabled={$isDeleting}
               >
-                Delete
+                {$isDeleting ? "Deleting..." : "Delete"}
               </button>
             </td>
           </tr>
