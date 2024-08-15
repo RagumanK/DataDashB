@@ -1,19 +1,3 @@
-# 🌐 Real-Time Collaborative Data Dashboard
-
-Welcome to the **Real-Time Collaborative Data Dashboard** project! This repository contains the code for a web-based application that allows multiple users to interact with and visualize data in real-time. The application is built with **Apache Superset** for data visualization, **DuckDB** for database management, and **Svelte** for a reactive frontend.
-
-## 🚀 Project Overview
-
-In today's fast-paced, data-driven world, organizations need tools that support **real-time collaboration** and **instant data updates**. This application aims to solve common challenges in collaborative data analysis by ensuring that any changes made by one user are immediately reflected across all connected clients.
-
-## 🎯 Features
-
-- **Real-Time Synchronization**: Instantly reflect changes made by one user across all other connected clients.
-- **Advanced Data Visualizations**: Leverage Apache Superset to create powerful, interactive dashboards.
-- **Seamless Integration**: Combine the power of DuckDB, Superset, and Svelte for a smooth user experience.
-- **Responsive UI**: Built with Svelte to ensure the application is fast, responsive, and user-friendly.
-- **Secure**: Includes authentication and authorization mechanisms to protect sensitive data.
-
 ## 🌟 Updated Problem Statement: Real-Time Collaborative Data Analysis
 
 ### Objective
@@ -41,6 +25,14 @@ The objective of this project is to design and implement a reactive data framewo
 5. **Apache Superset**
    - **Problem Addressed**: Providing advanced, easily accessible data visualization tools that integrate seamlessly with real-time data streams.
    - **Solution**: Apache Superset handles data visualization, offering interactive charts and dashboards that can be directly connected to DuckDB. This integration ensures that complex data is visualized intuitively, enhancing collaborative analysis and decision-making.
+
+## 🎯 Features
+
+- **Real-Time Synchronization**: Instantly reflect changes made by one user across all other connected clients.
+- **Advanced Data Visualizations**: Leverage Apache Superset to create powerful, interactive dashboards.
+- **Seamless Integration**: Combine the power of DuckDB, Superset, and Svelte for a smooth user experience.
+- **Responsive UI**: Built with Svelte to ensure the application is fast, responsive, and user-friendly.
+- **Secure**: Includes authentication and authorization mechanisms to protect sensitive data.
 
 ## 🎨 Key Challenges
 
