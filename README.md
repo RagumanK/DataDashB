@@ -6,13 +6,6 @@ Welcome to the **Real-Time Collaborative Data Dashboard** project! This reposito
 
 In today's fast-paced, data-driven world, organizations need tools that support **real-time collaboration** and **instant data updates**. This application aims to solve common challenges in collaborative data analysis by ensuring that any changes made by one user are immediately reflected across all connected clients.
 
-## 🛠️ Tech Stack
-
-- **DuckDB**: Efficient, in-process SQL OLAP database management system.
-- **Apache Superset**: Open-source data visualization and exploration platform.
-- **Svelte**: A modern JavaScript framework for building fast and reactive user interfaces.
-- **WebSockets**: Real-time communication protocol for instant updates.
-
 ## 🎯 Features
 
 - **Real-Time Synchronization**: Instantly reflect changes made by one user across all other connected clients.
@@ -21,11 +14,37 @@ In today's fast-paced, data-driven world, organizations need tools that support 
 - **Responsive UI**: Built with Svelte to ensure the application is fast, responsive, and user-friendly.
 - **Secure**: Includes authentication and authorization mechanisms to protect sensitive data.
 
-## 📈 Problem Statement
+### Updated Problem Statement: Real-Time Collaborative Data Analysis
 
-Organizations require efficient tools to analyze and interact with data **collaboratively in real-time**. Existing solutions often struggle with latency and lack seamless updates across clients, leading to fragmented workflows and delays in decision-making.
+#### Objective
 
-This application addresses these issues by:
+The objective of this project is to design and implement a reactive data framework capable of sub-one-second round-trip update times, enabling users to collaborate on a data spreadsheet in real-time. This solution aims to match the immediacy and fluidity of Google Sheets, facilitating seamless data interaction within a secure and scalable architecture.
+
+#### Technologies and Their Roles
+
+1. **FastAPI**
+
+   - **Problem Addressed**: Need for a robust backend capable of handling asynchronous requests and real-time data streaming without performance bottlenecks.
+   - **Solution**: FastAPI serves as the backend framework, providing high-performance API capabilities with asynchronous support. It manages all HTTP requests and integrates with WebSocket technology provided by Socket.IO for real-time communication.
+
+2. **Socket.IO**
+
+   - **Problem Addressed**: Ensuring that data updates made by one user are instantly visible to all other users without any perceivable delay.
+   - **Solution**: Socket.IO is used to facilitate real-time bidirectional event-based communication. It enables the server to push updates to all connected clients instantly when data changes, ensuring that the application remains highly responsive and interactive.
+
+3. **DuckDB with SQLAlchemy**
+
+   - **Problem Addressed**: Efficiently managing high-performance data transactions and seamless integration with the Python ecosystem.
+   - **Solution**: DuckDB provides an embedded SQL database optimized for analytical operations, ideal for fast data manipulation and querying. SQLAlchemy acts as the ORM, simplifying database interactions and allowing for dynamic SQL query generation.
+
+4. **Svelte**
+
+   - **Problem Addressed**: Creating a highly responsive and reactive frontend that updates in real time as data changes occur in the backend.
+   - **Solution**: Svelte is used for frontend development, compiling directly to efficient JavaScript code that surgically updates the DOM when state changes. This results in faster rendering times and a more performant user interface, crucial for a seamless real-time experience.
+
+5. **Apache Superset**
+   - **Problem Addressed**: Providing advanced, easily accessible data visualization tools that integrate seamlessly with real-time data streams.
+   - **Solution**: Apache Superset handles data visualization, offering interactive charts and dashboards that can be directly connected to DuckDB. This integration ensures that complex data is visualized intuitively, enhancing collaborative analysis and decision-making.
 
 - Providing **real-time data synchronization** across multiple clients.
 - Utilizing **Apache Superset** for advanced visualizations.
@@ -44,7 +63,6 @@ This application addresses these issues by:
 - Users interact with **Superset visualizations** and DuckDB data through the Svelte frontend.
 - System handles multiple concurrent users without significant lag.
 - Security measures protect data and restrict access to authorized users.
-
 
 ## 💬 Feedback
 
