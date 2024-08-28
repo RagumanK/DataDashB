@@ -7,7 +7,7 @@ from app.db.models import Order  # Adjust the path based on your project structu
 
 def init_db():
     # Check if the database file exists
-    db_path = 'data/orders.db'
+    db_path = 'data/duck_database.db'
     if os.path.exists(db_path):
         print(f"Database file '{db_path}' already exists. Skipping table creation and data loading.")
         return

@@ -27,3 +27,11 @@ class Order(Base):
             "city": self.city,
             "product_type": self.product_type
         }
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, Sequence("fakemodel_id_sequence"), primary_key=True) 
+    username = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True)
+    hashed_password = Column(String)

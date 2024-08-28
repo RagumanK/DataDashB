@@ -7,3 +7,6 @@ sqlalchemy
 python-dotenv
 python-socketio[asgi]  
 websockets
+python-jose
+passlib[bcrypt]
+python-multipart
